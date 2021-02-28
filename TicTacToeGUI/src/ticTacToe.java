@@ -1083,7 +1083,7 @@ public class ticTacToe extends JFrame {
 		return 1;
 		}
 	
-	//Methods/Data for Impossible Bot AI
+	//Methods/Components for Impossible Bot AI
 	static JButton[][] board = new JButton[3][3];
 	
 	public static class Move { 
@@ -1093,9 +1093,7 @@ public class ticTacToe extends JFrame {
 	static char player = 'x';
 	static char opponent = 'o'; 
 	  
-	// This function returns true if there are moves 
-	// remaining on the board. It returns false if 
-	// there are no moves left to play. 
+	// Returns true if there are moves remaining on the board, false if there are no moves left to play. 
 	public static boolean isMovesLeft(char board[][]) { 
 	    for (int i = 0; i<3; i++) {
 	        for (int j = 0; j<3; j++) { 
@@ -1107,8 +1105,7 @@ public class ticTacToe extends JFrame {
 	    return false; 
 	} 
 	  
-	// This is the evaluation function as discussed 
-	// in the previous article ( http://goo.gl/sJgv68 ) 
+	// This is the evaluation function 
 	public static int evaluate(char b[][]) { 
 	    // Checking for Rows for X or O victory. 
 	    for (int row = 0; row<3; row++) { 
@@ -1123,7 +1120,7 @@ public class ticTacToe extends JFrame {
 	        } 
 	    } 
 	  
-	    // Checking for Columns for X or O victory. 
+	    // Checking Columns for X or O victory 
 	    for (int col = 0; col<3; col++) { 
 	        if (b[0][col]==b[1][col] && 
 	            b[1][col]==b[2][col]) { 
@@ -1156,35 +1153,30 @@ public class ticTacToe extends JFrame {
 	        }
 	    } 
 	  
-	    // Else if none of them have won then return 0 
+	    // If none of them have won then return 0 
 	    return 0; 
 	} 
 	  
-	// This is the minimax function. It considers all 
-	// the possible ways the game can go and returns 
-	// the value of the board 
+	// Considers all possible ways the game can go and returns the value of the board 
 	public static int minimax(char board[][], int depth, boolean isMax) { 
 	    int score = evaluate(board); 
 	  
-	    // If Maximizer has won the game return his/her 
-	    // evaluated score 
+	    // If the Maximizer has won the game return their evaluated score 
 	    if (score == 10) {
 	        return score; 
 	    }
 	  
-	    // If Minimizer has won the game return his/her 
-	    // evaluated score 
+	    // If the Minimizer has won the game return their evaluated score 
 	    if (score == -10) {
 	        return score; 
 	    }
 	  
-	    // If there are no more moves and no winner then 
-	    // it is a tie 
+	    // If there are no more moves and no winner then it is a tie 
 	    if (isMovesLeft(board)==false) {
 	        return 0; 
 	    }
 	  
-	    // If this maximizer's move 
+	    // If this is the maximizer's move 
 	    if (isMax) { 
 	        int best = -1000; 
 	  
@@ -1196,8 +1188,7 @@ public class ticTacToe extends JFrame {
 	                    // Make the move 
 	                    board[i][j] = opponent; 
 	  
-	                    // Call minimax recursively and choose 
-	                    // the maximum value 
+	                    // Call minimax recursively and choose the maximum value 
 	                    best = Math.max(best, minimax(board, depth+1, !isMax) ); 
 	  
 	                    // Undo the move 
@@ -1208,7 +1199,7 @@ public class ticTacToe extends JFrame {
 	        return best; 
 	    } 
 	  
-	    // If this minimizer's move 
+	    // If this is the minimizer's move 
 	    else { 
 	        int best = 1000; 
 	  
@@ -1233,16 +1224,14 @@ public class ticTacToe extends JFrame {
 	    } 
 	} 
 	  
-	 // This will return the best possible move for the player 
+	 // return best possible move for the player 
 	public static Move findBestMove(char board[][]) { 
 	    int bestVal = -1000; 
 	    Move bestMove = new Move(); 
 	    bestMove.row = -1; 
 	    bestMove.col = -1; 
 	  
-	    // Traverse all cells, evaluate minimax function for 
-	    // all empty cells. And return the cell with optimal 
-	    // value. 
+	    // Traverse all cells, evaluate minimax function for all empty cells, return the cell with optimal value
 	    for (int i = 0; i<3; i++) { 
 	        for (int j = 0; j<3; j++) { 
 	            // Check if cell is empty 
@@ -1250,16 +1239,13 @@ public class ticTacToe extends JFrame {
 	                // Make the move 
 	                board[i][j] = opponent; 
 	  
-	                // compute evaluation function for this 
-	                // move. 
+	                // compute evaluation function for this move
 	                int moveVal = minimax(board, 0, false); 
 	  
 	                // Undo the move 
 	                board[i][j] = '_'; 
 	  
-	                // If the value of the current move is 
-	                // more than the best value, then update 
-	                // best/ 
+	                // If the value of the current move is more than the best value, then update best
 	                if (moveVal > bestVal) { 
 	                    bestMove.row = i; 
 	                    bestMove.col = j; 
@@ -1271,7 +1257,7 @@ public class ticTacToe extends JFrame {
 	    return bestMove; 
 	} 
 	
-	//Actual Impossible Bot Function
+	//Impossible Bot Function
 	public static int impossibleBot(JButton bt) {
 		if (!bt.getText().equals("")) {
 			disp.setText("You Can't Go Here!");
